@@ -28,6 +28,19 @@ trait Bookmarker
 
         return $bookmark->save();
     }
+    
+    /**
+     *  Method for remove bookmarked model
+     * 
+     *  @param  Illuminate\Database\Eloquent\Model  $bookmarkable_class
+     *  @return void
+     */
+    public function unBookmark(Model $bookmarkable_class): void
+    {
+        $this->validateMethod();
+
+        $this->bookmarks($bookmarkable_class)->detach($bookmarkable_class->getKey());
+    }
 
     /**
      *  This method for get all bookmark in related object
