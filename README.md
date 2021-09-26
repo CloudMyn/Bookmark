@@ -56,14 +56,24 @@ $user->bookmark($post);
 $post->bookmark($user)
 ```
 
-Untuk mendapatkan model yang di bookmark silahkan masukkan code di bawah ini
+Untuk mendapatkan model yang di bookmark:
 
 ```PHP
 $user->getBookmarks();
 ```
 
-Untuk melihat siapa saja yang mem-bookmark model post silahkan masukkan code dibawah ini
+Untuk melihat siapa saja yang mem-bookmark model post:
 
 ```PHP
 $post->getBookmarkers();
+```
+
+Untuk menghapus model yang telah di-bookmark:
+
+```PHP
+// Method untuk di model user
+$user->unBookmark($post);
+
+// Method untuk di model post
+$post->unBookmark($user);
 ```
