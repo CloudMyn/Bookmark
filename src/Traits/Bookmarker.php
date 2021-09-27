@@ -83,6 +83,5 @@ trait Bookmarker
             throw new BookmarkException("Cannot calling this method outside of Illuminate\Database\Eloquent\Model");
     }
 
-
     // ...
 }
