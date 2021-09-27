@@ -83,3 +83,21 @@ $user->unBookmark($post);
 // Method untuk di model post
 $post->unBookmark($user);
 ```
+
+Untuk menemukan object yang telah di-bookmark:
+
+```PHP
+// Method untuk di model user
+$user->findBookmarkable($post);
+
+// Method untuk di model post
+$post->findBookmarker($user);
+```
+
+Untuk mengecek apakah object telah di bookmark atau tidak:
+
+```PHP
+
+$user->isBookmarked($post);
+
+```
