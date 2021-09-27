@@ -10,7 +10,7 @@
             "email": "muhabdi47.com@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "CloudMyn\\Bookmark\\": "src/"
