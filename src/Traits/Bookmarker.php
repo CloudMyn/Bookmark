@@ -88,7 +88,7 @@ trait Bookmarker
      *  This method for get all bookmark in related object
      *
      *  @param  string  $bookmarkable_class
-     *  @param  bool    $queryReturn determine whether the return value should raw query or collectio model
+     *  @param  bool    $queryReturn determine whether the return value should raw query or collection model
      *
      *  @return \Illuminate\Database\Eloquent\Relations\MorphToMany|\Illuminate\Database\Eloquent\Collection
      */
