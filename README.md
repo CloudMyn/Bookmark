@@ -8,9 +8,15 @@ pastikan system anda memenuhi semua persyaratan di atas!
 
 Package ini memunkinkan anda melakukan bookmark terhadap model yang anda inginkan, tampa harus repot membuatnya dari awal!
 
+## Instalation
+
+Silahkan jalankan perintah dibawah, kami menganggap composer telah terinstal di mesin anda
+
+    composer require cloudmyn/bookmark
+
 ## Usage
 
-Kami menganggap package ini sudah ter-install di mesin anda!, untuk tahap selanjutnya anda harus *published* vendor package seperti migrations dan config
+untuk tahap selanjutnya anda harus *published* vendor package seperti migrations dan config
 
     php artisan vendor:publish --provider="CloudMyn\Bookmark\BookmarkServiceProvider" --tag="config"
  
