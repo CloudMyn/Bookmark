@@ -2,8 +2,6 @@
 
 > requirement: php ^7.2.5 & laravel 7
 
-pastikan system anda memenuhi semua persyaratan di atas!
-
 ## Brief
 
 Package ini memunkinkan anda melakukan bookmark terhadap model yang anda inginkan, tampa harus repot membuatnya dari awal!
