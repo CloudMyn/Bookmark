@@ -95,8 +95,9 @@ trait Bookmarkable
 
         $tabel_name     =   config('bookmark.table_name', 'bookmarks');
         $bookmarkable   =   config('bookmark.morph_name.bookmarkable', 'bookmarkable');
+        $bookmarker     =   config('bookmark.morph_name.bookmarker', 'bookmarker');
 
-        return $this->morphToMany($bookmarker_class, $bookmarkable, $tabel_name);
+        return $this->morphToMany($bookmarker_class, $bookmarkable, $tabel_name, null, "{$bookmarker}_id");
     }
 
     /**

@@ -109,10 +109,11 @@ trait Bookmarker
     {
         $this->validateMethod();
 
-        $tabel_name =   config('bookmark.table_name', 'bookmarks');
-        $bookmarker =   config('bookmark.morph_name.bookmarker', 'bookmarker');
+        $tabel_name     =   config('bookmark.table_name', 'bookmarks');
+        $bookmarker     =   config('bookmark.morph_name.bookmarker', 'bookmarker');
+        $bookmarkable   =   config('bookmark.morph_name.bookmarkable', 'bookmarkable');
 
-        return $this->morphToMany($bookmarkable_class, $bookmarker, $tabel_name);
+        return $this->morphToMany($bookmarkable_class, $bookmarker, $tabel_name, null, "{$bookmarkable}_id");
     }
 
     /**
