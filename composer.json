@@ -10,7 +10,8 @@
             "email": "muhabdi47.com@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "CloudMyn\\Bookmark\\": "src/"
@@ -25,6 +26,11 @@
         "orchestra/testbench": "^5.0",
         "phpunit/phpunit": "9.5.x-dev"
     },
+    "keywords": [
+        "bookmark",
+        "cloudmyn",
+        "laravel"
+    ],
     "extra": {
         "laravel": {
             "providers": [
