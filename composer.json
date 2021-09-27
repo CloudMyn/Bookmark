@@ -2,7 +2,7 @@
     "name": "cloudmyn/bookmark",
     "description": "A simple package of laravel that allows you to bookmark your model",
     "type": "library",
-    "version": "v0.1",
+    "version": "v1.0",
     "license": "MIT",
     "authors": [
         {
