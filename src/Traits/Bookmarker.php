@@ -11,35 +11,77 @@ trait Bookmarker
 {
 
     /**
+     *  Method for find a bookmarkable base on their class and id
+     * 
+     *  @param  string  $bookmarkable_class
+     *  @param  string  $bookmarkable_id
+     * 
+     *  @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findBookmarkable(string $bookmarkable_class, int $bookmarkable_id)
+    {
+        $bookmarkable_id_name    =   config('bookmark.morph_name.bookmarkable', 'bookmarkable');
+
+        $bookmarks = $this->bookmarks($bookmarkable_class)->withPivotValue([
+            "{$bookmarkable_id_name}_id" => $bookmarkable_id,
+        ]);
+
+        return $bookmarks->get();
+    }
+
+    /**
+     *  Method for checking whether the object is bookmarked or not
+     * 
+     *  @param  string  $bookmarkable_class
+     *  @param  string  $bookmarkable_id
+     * 
+     *  @return bool
+     */
+    public function isBookmarked(string $bookmarkable_class, int $bookmarkable_id): bool
+    {
+        $result = $this->findBookmarkable($bookmarkable_class, $bookmarkable_id);
+
+        if (count($result) !== 0) return true;
+
+        return false;
+    }
+
+    /**
      *  Method for bookmark a bookmarkable object
      *
-     *  @param  Illuminate\Database\Eloquent\Model  $bookmarkable_class
+     *  @param  Illuminate\Database\Eloquent\Model  $bookmarkable_object
      *  @return bool    return true if success otherwise false
      */
-    public function bookmark(Model $bookmarkable_class): bool
+    public function bookmark(Model $bookmarkable_object): bool
     {
         $this->validateMethod();
 
         $bookmark = new Bookmark();
 
-        $bookmark->bookmarkable()->associate($bookmarkable_class);
+        $bookmark->bookmarkable()->associate($bookmarkable_object);
         // $this referred to the model
         $bookmark->bookmarker()->associate($this);
 
         return $bookmark->save();
     }
-    
+
     /**
      *  Method for remove bookmarked model
      * 
-     *  @param  Illuminate\Database\Eloquent\Model  $bookmarkable_class
-     *  @return void
+     *  @param  string  $bookmarkable_class
+     *  @param  int     $bookmarkable_id
+     * 
+     *  @return bool
      */
-    public function unBookmark(Model $bookmarkable_class): void
+    public function unBookmark(string $bookmarkable_class, int $bookmarkable_id): bool
     {
         $this->validateMethod();
 
-        $this->bookmarks($bookmarkable_class)->detach($bookmarkable_class->getKey());
+        $result = $this->bookmarks($bookmarkable_class)->detach($bookmarkable_id);
+
+        if ($result >= 1) return true;
+
+        return false;
     }
 
     /**

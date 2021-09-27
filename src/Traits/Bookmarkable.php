@@ -10,13 +10,33 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 trait Bookmarkable
 {
 
+
+    /**
+     *  Method for find a bookmarker base on their class and id
+     * 
+     *  @param  string  $bookmarker_class
+     *  @param  string  $bookmarker_id
+     * 
+     *  @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findBookmarker(string $bookmarker_class, int $bookmarker_id)
+    {
+        $bookmarker_id_name    =   config('bookmark.morph_name.bookmarker', 'bookmarker');
+
+        $bookmarks = $this->bookmarks($bookmarker_class)->withPivotValue([
+            "{$bookmarker_id_name}_id" => $bookmarker_id,
+        ]);
+
+        return $bookmarks->get();
+    }
+
     /**
      *  Method for bookmark a bookmarkable object
      *
-     *  @param  Illuminate\Database\Eloquent\Model  $bookmarker_class
+     *  @param  Illuminate\Database\Eloquent\Model  $bookmarker_object
      *  @return bool    return true if success otherwise false
      */
-    public function bookmark(Model $bookmarker_class): bool
+    public function bookmark(Model $bookmarker_object): bool
     {
         $this->validateMethod();
 
@@ -24,7 +44,7 @@ trait Bookmarkable
 
         // $this referred to the model
         $bookmark->bookmarkable()->associate($this);
-        $bookmark->bookmarker()->associate($bookmarker_class);
+        $bookmark->bookmarker()->associate($bookmarker_object);
 
         return $bookmark->save();
     }
@@ -32,14 +52,20 @@ trait Bookmarkable
     /**
      *  Method for remove bookmarked model
      * 
-     *  @param  Illuminate\Database\Eloquent\Model  $bookmarker_class
-     *  @return void
+     *  @param  string  $bookmarker_class
+     *  @param  int     $bookmarker_id
+     * 
+     *  @return bool
      */
-    public function unBookmark(Model $bookmarker_class): void
+    public function unBookmark(string $bookmarker_class, int $bookmarker_id): bool
     {
         $this->validateMethod();
 
-        $this->bookmarks($bookmarker_class)->detach($bookmarker_class->getKey());
+        $result = $this->bookmarks($bookmarker_class)->detach($bookmarker_id);
+
+        if ($result >= 1) return true;
+
+        return false;
     }
 
     /**
