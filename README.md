@@ -1,4 +1,4 @@
-# Logger - a simple package for laravel framework
+# Bookmark - a simple package for laravel framework
 
 > requirement: php ^7.2.5 & laravel 7
 
