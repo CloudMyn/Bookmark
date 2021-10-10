@@ -4,7 +4,7 @@ namespace CloudMyn\Bookmark\Traits;
 
 use CloudMyn\Bookmark\Bookmark;
 use CloudMyn\Bookmark\Events\Bookmarked;
-use CloudMyn\Bookmark\Events\Unbookmarked;
+use CloudMyn\Bookmark\Events\UnBookmark;
 use CloudMyn\Bookmark\Throwable\BookmarkException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -84,7 +84,7 @@ trait Bookmarker
         $result = $this->bookmarks($bookmarkable_class)->detach($bookmarkable_id);
 
         if ($result >= 1) {
-            event(new Unbookmarked());
+            event(new UnBookmark());
             return true;
         }
 
