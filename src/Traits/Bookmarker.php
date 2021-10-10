@@ -3,6 +3,8 @@
 namespace CloudMyn\Bookmark\Traits;
 
 use CloudMyn\Bookmark\Bookmark;
+use CloudMyn\Bookmark\Events\Bookmarked;
+use CloudMyn\Bookmark\Events\Unbookmarked;
 use CloudMyn\Bookmark\Throwable\BookmarkException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -62,6 +64,8 @@ trait Bookmarker
         // $this referred to the model
         $bookmark->bookmarker()->associate($this);
 
+        event(new Bookmarked());
+
         return $bookmark->save();
     }
 
@@ -79,7 +83,10 @@ trait Bookmarker
 
         $result = $this->bookmarks($bookmarkable_class)->detach($bookmarkable_id);
 
-        if ($result >= 1) return true;
+        if ($result >= 1) {
+            event(new Unbookmarked());
+            return true;
+        }
 
         return false;
     }
