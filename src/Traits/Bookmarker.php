@@ -64,7 +64,7 @@ trait Bookmarker
         // $this referred to the model
         $bookmark->bookmarker()->associate($this);
 
-        event(new Bookmarked());
+        event(new Bookmarked($bookmarkable_object));
 
         return $bookmark->save();
     }
@@ -81,10 +81,15 @@ trait Bookmarker
     {
         $this->validateMethod();
 
+        $bookmarkable = Bookmark::where([
+            'bookmarkable_type' => $bookmarkable_class,
+            'bookmarkable_id' => $bookmarkable_id,
+        ])->first()->bookmarkable;
+
         $result = $this->bookmarks($bookmarkable_class)->detach($bookmarkable_id);
 
         if ($result >= 1) {
-            event(new UnBookmark());
+            event(new UnBookmark($bookmarkable));
             return true;
         }
 
