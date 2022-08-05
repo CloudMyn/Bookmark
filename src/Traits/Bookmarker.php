@@ -54,7 +54,7 @@ trait Bookmarker
      *  @param  Illuminate\Database\Eloquent\Model  $bookmarkable_object
      *  @return bool    return true if success otherwise false
      */
-    public function bookmark(Model $bookmarkable_object): bool
+    public function bookmark(\Illuminate\Database\Eloquent\Model $bookmarkable_object): bool
     {
         $this->validateMethod();
 

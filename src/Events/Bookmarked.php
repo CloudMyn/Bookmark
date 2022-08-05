@@ -19,8 +19,9 @@ class Bookmarked
      *
      * @return void
      */
-    public function __construct(Model $subject)
-    {
+    public function __construct(
+        $subject
+    ) {
         $this->subject = $subject;
     }
 
